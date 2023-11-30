@@ -15,7 +15,7 @@ $ make
 Install 
 ```
 $ sudo make install
-$ echo -e "videodev\ngspca_main\ngspca_kinect2" | sudo tee -a /etc/modules
+$ echo -e "videodev\ngspca_main_kinect\ngspca_kinect2" | sudo tee -a /etc/modules
 $ sudo reboot
 ```
 
