@@ -24,7 +24,7 @@ $ sudo reboot
 All the pi models except for the 4B should be good to use the regular install instructions. The Pi 4B (non 64 bit OS)
 doesn't contain the linux source code to build modules with, so you need to download it yourself. The Pi 4B uses 
 a 64 bit kernel with a 32 bit userland and this makes it hard to cross-compile for the kernel though. The easiest
-way to get it working is to switch to the 32 bit version kernel and then downloading the source.
+way to get it working is to switch to the 32 bit version kernel and then download the source.
 
 Do this by appening this line to `/boot/config.txt`
 ```
