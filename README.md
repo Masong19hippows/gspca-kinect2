@@ -9,20 +9,38 @@ Linux kernel driver for the "Kinect for Windows 2" sensor.
 
 Build
 ```
-$ make -C /lib/modules/`uname -r`/build M=`pwd` SRCROOT=`pwd` clean modules
+$ make
 ```
 
-If you already installed original gspca_main driver, remove it first.
+Install 
 ```
-$ sudo /sbin/rmmod gspca_main
+$ sudo make install
+$ echo -e "videodev\ngspca_main\ngspca_kinect2" | sudo tee -a /etc/modules
+$ sudo reboot
 ```
 
-Then, install drivers.
+### Raspberry Pi
+
+All the pi models except for the 4B should be good to use the regular install instructions. The Pi 4B (non 64 bit OS)
+doesn't contain the linux source code to build modules with, so you need to download it yourself. The Pi 4B uses 
+a 64 bit kernel with a 32 bit userland and this makes it hard to cross-compile for the kernel though. The easiest
+way to get it working is to switch to the 32 bit version kernel and then downloading the source.
+
+Do this by appening this line to `/boot/config.txt`
 ```
-$ sudo /sbin/modprobe videodev
-$ sudo /sbin/insmod ./gspca_main.ko  
-$ sudo /sbin/insmod ./gspca_kinect2.ko  
+arm_64bit=0
 ```
+Then reboot
+```
+$ sudo reboot
+```
+
+You should now be able to follow the install instructions at https://github.com/RPi-Distro/rpi-source and download the kernel using
+
+```
+$ rpi-source
+```
+You should now be able to follow the Build and Install instructions above.
 
 ## Usage
 
@@ -34,10 +52,6 @@ This driver provides two v4l2 interfaces per a single kinect sensor; color camer
 $ ffmpeg  -framerate 30 -video_size 640x480 -i /dev/video0  test.avi  
 $ mplayer test.avi  
 ```
-
-### View live color/depth video
-
-I wrote an open source library, named libk4w2. See https://github.com/yoshimoto/libk4w2/ for details.
 
 ### Misc
 
